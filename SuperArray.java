@@ -66,8 +66,6 @@ public class SuperArray {
 	for (int i = _lastPos; i > index; i--) { // "bubble swap" backwards.
 	    swap(i,i-1);
 	}
-	_lastPos += 1;
-	_size += 1;
     }
 
     //remove - removes an item at a specified index and shifts everything left
@@ -82,7 +80,6 @@ public class SuperArray {
     }
     //remove - removes last meaningful element
     public void remove() {
-	System.out.println(_lastPos);
 	remove(_lastPos);
     }
     
@@ -142,6 +139,7 @@ public class SuperArray {
 	System.out.println(rab);
 	rab.remove(4);
 	System.out.println(rab);
+	rab.remove();
 	rab.remove();
 	System.out.println(rab);
     }//end main
