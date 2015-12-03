@@ -1,18 +1,7 @@
-/* Zicheng Zhen
+/* Team FeelTheBernieSanders - Zicheng Zhen and Adam McKoy
    APCS1 pd10
-   HW39 -- Array of Steel / Is This An Introduction to ArrayLists?
-   2015-12-01 */
-
-/*****************************
- * SKELETON for
- * class SuperArray --  A wrapper class for an array. 
- * Maintains functionality:
- *  access value at index
- *  overwrite value at index
- * Adds functionality to std Java array:
- *  resizability
- *  ability to print meaningfully
- *****************************/
+   HW40 -- Array of Grade 316 / Implementing More Functionality
+   2015-12-02 */
 
 public class SuperArray {
 
@@ -31,21 +20,72 @@ public class SuperArray {
     //default constructor – initializes 10-item array
     public SuperArray() {
 	_data = new int[10];
-	_lastPos = _data[_data.length-1];
-	_size = _data.length;
+	_lastPos = -1;
+	_size = 0;
     }
 		
     //output array in [a,b,c] format, eg
     // {1,2,3}.toString() -> "[1,2,3]"
     public String toString() {
-	String storage = "[";
+	String storage = "["; // Keeps track of non-zeros.
+	String stack = "";    // Keeps track of zeros.
 	for (int i : _data) {
-	    storage += ("" + i) + ",";
+	    if (i == 0) {
+		stack += i + ",";
+	    } else {
+		storage += stack + i + ",";
+		stack = "";
+	    }
 	}
 	if (storage.equals("[")) {return "[]";}
 	return storage.substring(0,storage.length()-1) + "]";
     }
-		
+
+    //swap - switches two indices of the array
+    //precond: int i1, i2 - two indices to be swapped
+    public void swap(int i1, int i2) {
+	int store = _data[i1];
+	_data[i1] = _data[i2];
+	_data[i2] = store;
+    }
+
+    //add - adds an item to the end of the array and gives the index meaning
+    //precond: int value - value to be added at the end
+    public void add(int value) {
+	if (_size+1 >= _data.length) {expand();} // Increases size if no space
+	_data[_lastPos+1] = value;
+	_lastPos += 1; // Afterwards, in case there is an error.
+	_size += 1;
+    }
+    //add - adds an item to an index of the array and shifts array to the right
+    //precond: int value - value to be added
+    //         int index - index to add to
+    public void add(int index, int value) {
+	if (_size+1 >= _data.length) {expand();}
+	add(value);
+	for (int i = _lastPos; i > index; i--) { // "bubble swap" backwards.
+	    swap(i,i-1);
+	}
+	_lastPos += 1;
+	_size += 1;
+    }
+
+    //remove - removes an item at a specified index and shifts everything left
+    //precond: int index - index to be removed;
+    public void remove(int index) {
+	_data[index] = 0;
+	for (int i = index; i < _lastPos; i++) {
+	    swap(i,i+1);
+	}
+	_lastPos -= 1;
+	_size -= 1;
+    }
+    //remove - removes last meaningful element
+    public void remove() {
+	System.out.println(_lastPos);
+	remove(_lastPos);
+    }
+    
     //double capacity of this SuperArray
     private void expand() {
 	int len = _data.length * 2;
@@ -55,13 +95,14 @@ public class SuperArray {
 	}
 	_data = copy;
     }
-
 		
     //accessor -- return value at specified index
     public int get( int index ) {
 	return _data[index];
     }
-
+    public int size() {
+	return _size;
+    }
 		
     //mutator -- set value at index to newVal, 
     //           return old value at index
@@ -75,7 +116,7 @@ public class SuperArray {
     //main method for testing
     public static void main( String[] args ) {
 	SuperArray oof = new SuperArray();
-	System.out.println(oof);
+	System.out.println("Phase I Testing:\n" + oof);
 	oof.expand();
 	System.out.println(oof);
 	for (int i = 0; i < 20; i++) {
@@ -84,7 +125,25 @@ public class SuperArray {
 	System.out.println(oof);
 	System.out.println(oof.get(3) + oof.get(4)); // 25
 	oof.expand();
-	System.out.println(oof);
+	System.out.println(oof + "\n\n" +
+			   "Phase II Testing:");
+	SuperArray rab = new SuperArray();
+	for (int i = 0; i < 10; i++) {
+	    rab.add(i);
+	}
+	System.out.println(rab);
+	rab.add(5,101);
+	System.out.println(rab);
+	for (int i = 11; i < 16; i++) {
+	    rab.add(i, i*10);
+	}
+	System.out.println(rab);
+	rab.remove(0);
+	System.out.println(rab);
+	rab.remove(4);
+	System.out.println(rab);
+	rab.remove();
+	System.out.println(rab);
     }//end main
 		
 }//end class
