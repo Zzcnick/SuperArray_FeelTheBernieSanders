@@ -3,7 +3,7 @@
    HW40 -- Array of Grade 316 / Implementing More Functionality
    2015-12-02 */
 
-public class SuperArray {
+public class SuperArray implements ListInt {
 
     //~~~~~INSTANCE VARS~~~~~
     //underlying container, or "core" of this data structure:
@@ -122,6 +122,7 @@ public class SuperArray {
 	System.out.println(oof);
 	System.out.println(oof.get(3) + oof.get(4)); // 25
 	oof.expand();
+	// ------PHASE II------
 	System.out.println(oof + "\n\n" +
 			   "Phase II Testing:");
 	SuperArray rab = new SuperArray();
