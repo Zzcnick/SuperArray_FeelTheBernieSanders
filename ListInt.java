@@ -15,18 +15,19 @@ public interface ListInt {
     // postcond: 
     void remove(int index);
 
-    // add - adds value to end of the array
-    // precond: value - value to add to the end
-    // postcond: int - returns value of array's index value
+    // get - returns value at an index
+    // precond: int index - index to retrieve
+    // postcond: int - value at the specified index
     int get(int index);
 
-    // add - adds value to end of the array
-    // precond: value - value to add to the end
-    // postcond: 
+    // set - changes value at index, returns old value
+    // precond: int index - index to give value to
+    //          int value - value to set
+    // postcond: int - old value at index
     int set(int index, int value);
 
-    // add - adds value to end of the array
-    // precond: value - value to add to the end
-    // postcond: 
+    // size - returns size of array data
+    // precond: 
+    // postcond: int - length of array data
     int size();
 }

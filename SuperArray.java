@@ -1,7 +1,7 @@
-/* Team FeelTheBernieSanders - Zicheng Zhen and Adam McKoy
+/* Team FeelTheBernieSanders - Zicheng Zhen and Matthew So
    APCS1 pd10
-   HW40 -- Array of Grade 316 / Implementing More Functionality
-   2015-12-02 */
+   HW42 -- Array of Titanium / More Implementation of Interfaces
+   2015-12-04 */
 
 public class SuperArray implements ListInt {
 
@@ -29,13 +29,8 @@ public class SuperArray implements ListInt {
     public String toString() {
 	String storage = "["; // Keeps track of non-zeros.
 	String stack = "";    // Keeps track of zeros.
-	for (int i : _data) {
-	    if (i == 0) {
-		stack += i + ",";
-	    } else {
-		storage += stack + i + ",";
-		stack = "";
-	    }
+	for (int i = 0; i < _size; i++) {
+	    storage += _data[i] + ",";
 	}
 	if (storage.equals("[")) {return "[]";}
 	return storage.substring(0,storage.length()-1) + "]";
@@ -44,9 +39,7 @@ public class SuperArray implements ListInt {
     //swap - switches two indices of the array
     //precond: int i1, i2 - two indices to be swapped
     public void swap(int i1, int i2) {
-	int store = _data[i1];
-	_data[i1] = _data[i2];
-	_data[i2] = store;
+	_data[i1] = set(i2, _data[i1]);
     }
 
     //add - adds an item to the end of the array and gives the index meaning
@@ -112,6 +105,7 @@ public class SuperArray implements ListInt {
 
     //main method for testing
     public static void main( String[] args ) {
+	// ------PHASE I------
 	SuperArray oof = new SuperArray();
 	System.out.println("Phase I Testing:\n" + oof);
 	oof.expand();
@@ -143,6 +137,23 @@ public class SuperArray implements ListInt {
 	rab.remove();
 	rab.remove();
 	System.out.println(rab);
+	// ------PHASE III------
+	System.out.println(oof + "\n\n" +
+			   "Phase III Testing:");
+	ListInt foo = new SuperArray();
+	for (int i = 0; i < 10; i++) {
+	    foo.add(i*i*i);
+	}
+	foo.add(0,-10);
+	System.out.println(foo);
+	foo.add(100);
+	System.out.println(foo);
+	foo.remove(5);
+	System.out.println(foo);
+	System.out.println(foo.size());
+	System.out.println(foo.get(5));
+	foo.set(5,1000);
+	System.out.println(foo.get(5));
     }//end main
 		
 }//end class
